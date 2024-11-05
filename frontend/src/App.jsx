@@ -133,6 +133,19 @@ const App = () => {
     return address ? `${address.slice(0, 4)}...${address.slice(-4)}` : "";
   };
 
+  //handlecopy
+
+  const handleCopy = () => {
+    const textToCopy = walletAddress ? walletAddress : "Not Connected";
+    navigator.clipboard
+      .writeText(textToCopy)
+      .then(() => {
+        alert("Address copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Could not copy text: ", err);
+      });
+  };
   return (
     <div className="container">
       <div className="swap-box">
@@ -143,13 +156,19 @@ const App = () => {
         </button>
 
         <h3>
-          Swapping Address:{" "}
-          <span>
+          Wallet Address:{" "}
+          <span
+            onClick={handleCopy}
+            style={{
+              cursor: "pointer",
+              textDecoration: "underline",
+            }}
+          >
             {walletAddress ? shortenAddress(walletAddress) : "Not Connected"}
           </span>
         </h3>
         <div className="warning">
-          Warning: Your swapping address must hold the token to be swapped
+          Warning: Your wallet address must hold the token to be swapped
         </div>
         {walletAddress && (
           <div>
@@ -168,9 +187,12 @@ const App = () => {
           <h4>User Token1 Account:</h4>
 
           <div className="warning">
-            To get your token account. paste your wallet address in {"   "}
-            <a href="https://solscan.io/">solscan</a>. then navigate to
-            portfolio to see your token accounts.
+            To get your token account. copy your wallet address, paste your
+            wallet address in {"   "}
+            <a href="https://solscan.io/" target="_blank">
+              solscan
+            </a>
+            . then navigate to portfolio to see your token accounts.
           </div>
           <input
             placeholder="Enter Token1 account"
@@ -200,9 +222,12 @@ const App = () => {
         <div>
           <h4>User Token2 Account:</h4>
           <div className="warning">
-            To get your token account. paste your wallet address in {"   "}
-            <a href="https://solscan.io/">solscan</a>. then navigate to
-            portfolio to see your token accounts.
+            To get your token account. copy your wallet address, paste your
+            wallet address in {"   "}
+            <a href="https://solscan.io/" target="_blank">
+              solscan
+            </a>
+            . then navigate to portfolio to see your token accounts.
           </div>
           <input
             placeholder="Enter Token2 account"
