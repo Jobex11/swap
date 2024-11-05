@@ -6,6 +6,8 @@ import * as anchor from "@project-serum/anchor";
 import WalletIcon from "@mui/icons-material/Wallet";
 import SendAndArchiveIcon from "@mui/icons-material/SendAndArchive";
 import idl from "./idl.json";
+import "./index.css";
+import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 
 const programId = new PublicKey("2seCkRoLJbdPK8EL7Ae4HsG4B9yQTuu9TY9Tbym3QKME");
 const contractToken1Account = new PublicKey(
@@ -142,32 +144,44 @@ const App = () => {
 
         <h3>
           Swapping Address:{" "}
-          {walletAddress ? shortenAddress(walletAddress) : "Not Connected"}
+          <span>
+            {walletAddress ? shortenAddress(walletAddress) : "Not Connected"}
+          </span>
         </h3>
-
+        <div className="warning">
+          Warning: Your swapping address must hold the token to be swapped
+        </div>
         {walletAddress && (
           <div>
-            <p>
-              Token1 Balance:{" "}
+            <h3>
+              Token1 Balance (5XDtS38...) :{" "}
               {token1Balance !== null ? token1Balance : "Loading..."}
-            </p>
-            <p>
-              Token2 Balance:{" "}
+            </h3>
+            <h3>
+              Token2 Balance (CaGbBR...) :{" "}
               {token2Balance !== null ? token2Balance : "Loading..."}
-            </p>
+            </h3>
           </div>
         )}
 
         <div>
           <h4>User Token1 Account:</h4>
+
+          <div className="warning">
+            To get your token account. paste your wallet addres in {"   "}
+            <a href="https://solscan.io/">solscan</a>. then navigate to
+            portfolio to see your token accounts.
+          </div>
           <input
-            placeholder="Enter your Token1 account"
+            placeholder="Enter Token1 account"
             value={userToken1Account}
             onChange={handleAccountChange(setUserToken1Account)}
           />
-          <h4>Token1 (Optimus token):</h4>
+          <h4>
+            Token1 <SwapHorizIcon /> Token2
+          </h4>
           <input
-            placeholder="Enter amount of token1"
+            placeholder="Enter amount of token1 to swap"
             value={amountToken1}
             onChange={handleAmountChange(setAmountToken1)}
           />
@@ -180,16 +194,26 @@ const App = () => {
           </button>
         </div>
 
+        <div className="line">
+          <hr />
+        </div>
         <div>
           <h4>User Token2 Account:</h4>
+          <div className="warning">
+            To get your token account. paste your wallet addres in {"   "}
+            <a href="https://solscan.io/">solscan</a>. then navigate to
+            portfolio to see your token accounts.
+          </div>
           <input
-            placeholder="Enter your Token2 account"
+            placeholder="Enter Token2 account"
             value={userToken2Account}
             onChange={handleAccountChange(setUserToken2Account)}
           />
-          <h4>Token2 (Prime token):</h4>
+          <h4>
+            Token2 <SwapHorizIcon /> Token1
+          </h4>
           <input
-            placeholder="Enter amount of token2"
+            placeholder="Enter amount of token2 to swap"
             value={amountToken2}
             onChange={handleAmountChange(setAmountToken2)}
           />
