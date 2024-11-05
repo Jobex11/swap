@@ -168,7 +168,7 @@ const App = () => {
           <h4>User Token1 Account:</h4>
 
           <div className="warning">
-            To get your token account. paste your wallet addres in {"   "}
+            To get your token account. paste your wallet address in {"   "}
             <a href="https://solscan.io/">solscan</a>. then navigate to
             portfolio to see your token accounts.
           </div>
@@ -200,7 +200,7 @@ const App = () => {
         <div>
           <h4>User Token2 Account:</h4>
           <div className="warning">
-            To get your token account. paste your wallet addres in {"   "}
+            To get your token account. paste your wallet address in {"   "}
             <a href="https://solscan.io/">solscan</a>. then navigate to
             portfolio to see your token accounts.
           </div>
