@@ -1,0 +1,47 @@
+{
+  "version": "0.1.0",
+  "name": "multi_token_funding",
+  "instructions": [
+    {
+      "name": "initialize",
+      "accounts": [
+        { "name": "vault", "isMut": true, "isSigner": true },
+        { "name": "user", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": []
+    },
+    {
+      "name": "fundToken1",
+      "accounts": [
+        { "name": "user", "isMut": true, "isSigner": true },
+        { "name": "userToken1Account", "isMut": true, "isSigner": false },
+        { "name": "contractToken1Account", "isMut": true, "isSigner": false },
+        { "name": "tokenProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "amount", "type": "u64" }]
+    },
+    {
+      "name": "fundToken2",
+      "accounts": [
+        { "name": "user", "isMut": true, "isSigner": true },
+        { "name": "userToken2Account", "isMut": true, "isSigner": false },
+        { "name": "contractToken2Account", "isMut": true, "isSigner": false },
+        { "name": "tokenProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "amount", "type": "u64" }]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Vault",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "token1", "type": "publicKey" },
+          { "name": "token2", "type": "publicKey" }
+        ]
+      }
+    }
+  ]
+}
