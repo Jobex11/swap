@@ -1,4 +1,4 @@
-simport { Buffer } from "buffer";
+import { Buffer } from "buffer";
 window.Buffer = Buffer;
 import { useState } from "react";
 import { Connection, PublicKey } from "@solana/web3.js";
