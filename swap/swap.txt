@@ -1,0 +1,115 @@
+Here’s a complete JavaScript script that you can run to perform a token swap using 
+**Raydium** on Solana’s **devnet**. This example uses Node.js and Raydium’s SDK 
+to connect to a Raydium pool and swap tokens.
+
+### Requirements
+- **Node.js**: Make sure Node.js is installed.
+- **Solana CLI**: Ensure Solana CLI is installed and configured.
+- **Wallet with devnet tokens**: You’ll need some test tokens on devnet. You can 
+create a wallet using the Solana CLI or Phantom Wallet.
+
+### Complete Code to Swap Tokens on Raydium Using Node.js
+
+Save the following code in a file named `solana-raydium-swap.js`.
+
+```javascript
+const { Connection, PublicKey, Keypair, Transaction } = require('@solana/web3.js');
+const { Token, TOKEN_PROGRAM_ID } = require('@solana/spl-token');
+const raydium = require('@raydium-io/raydium-sdk');
+
+// Initialize Solana connection
+const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
+
+// Initialize wallet (using Keypair here for demo; replace with your wallet)
+const wallet = Keypair.generate();
+
+// Replace these with actual addresses
+const POOL_ID = new PublicKey('POOL_PUBLIC_KEY_HERE'); // Raydium pool for the token pair (e.g., SOL/USDC)
+const SOURCE_TOKEN_ACCOUNT = new PublicKey('SOURCE_TOKEN_ACCOUNT_HERE'); // User's source token account
+const DESTINATION_TOKEN_ACCOUNT = new PublicKey('DESTINATION_TOKEN_ACCOUNT_HERE'); // User's destination token account
+
+// Amount to swap and minimum amount expected (in smallest units, e.g., lamports for SOL)
+const swapAmount = 1000000; // Amount in smallest units to swap from source to destination
+const minOutAmount = 950000; // Minimum amount expected to prevent slippage losses
+
+// Load Raydium pool
+async function loadPool() {
+    console.log('Loading Raydium pool...');
+    const pool = await raydium.loadPool(connection, POOL_ID);
+    return pool;
+}
+
+// Perform the swap transaction
+async function swapTokens() {
+    const pool = await loadPool();
+    const transaction = new Transaction();
+
+    // Create the swap instruction using Raydium SDK
+    const swapInstruction = raydium.makeSwapInstruction({
+        pool,
+        userSourceTokenAccount: SOURCE_TOKEN_ACCOUNT,
+        userDestinationTokenAccount: DESTINATION_TOKEN_ACCOUNT,
+        amountIn: swapAmount,
+        minAmountOut: minOutAmount,
+        user: wallet.publicKey,
+    });
+
+    transaction.add(swapInstruction);
+
+    console.log('Signing and sending transaction...');
+    const signature = await connection.sendTransaction(transaction, [wallet]);
+    await connection.confirmTransaction(signature, 'confirmed');
+    console.log(`Swap transaction confirmed: ${signature}`);
+}
+
+// Check balance of a token account
+async function checkBalance(account) {
+    const balance = await connection.getTokenAccountBalance(account);
+    console.log(`Balance for ${account.toString()}: ${balance.value.uiAmount}`);
+}
+
+// Main function to run the swap
+async function main() {
+    console.log('Checking initial balances...');
+    await checkBalance(SOURCE_TOKEN_ACCOUNT);
+    await checkBalance(DESTINATION_TOKEN_ACCOUNT);
+
+    console.log('Starting swap...');
+    await swapTokens();
+
+    console.log('Checking final balances...');
+    await checkBalance(SOURCE_TOKEN_ACCOUNT);
+    await checkBalance(DESTINATION_TOKEN_ACCOUNT);
+}
+
+main().catch(console.error);
+```
+
+### Setup Instructions
+
+1. **Replace Placeholder Values**: Update the following placeholders in the code with actual values:
+   - `POOL_PUBLIC_KEY_HERE`: The Raydium pool’s public key for the token pair (e.g., `SOL/USDC`). You can find pool addresses on Raydium's official documentation or API.
+   - `SOURCE_TOKEN_ACCOUNT_HERE`: Public key of the source token account from which you’re swapping.
+   - `DESTINATION_TOKEN_ACCOUNT_HERE`: Public key of the destination token account where swapped tokens will be received.
+
+2. **Fund Your Wallet on Devnet**: Ensure the wallet has sufficient tokens on Solana devnet.
+   - If using a new wallet, fund it with test SOL by running:
+     ```bash
+     solana airdrop 2 YOUR_WALLET_ADDRESS --url https://api.devnet.solana.com
+     ```
+
+3. **Run the Code**:
+   Make sure you’re in the directory containing the `solana-raydium-swap.js` file, then run the script with Node.js:
+
+   ```bash
+   node solana-raydium-swap.js
+   ```
+
+4. **Check Output**: 
+   The script will output the initial and final balances of the source and destination token accounts, as well as the transaction signature for the swap.
+
+### Notes
+
+- **Token Accounts**: Ensure the source and destination accounts are created and hold the correct tokens. Use the Solana CLI to create token accounts if necessary.
+- **Error Handling**: If the swap fails, it could be due to slippage (try adjusting `minOutAmount`) or incorrect pool/token account addresses.
+- **Testing**: Run this code on Solana **devnet** to avoid transaction fees and to test with play tokens.

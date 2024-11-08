@@ -1,121 +1,77 @@
-// Load environment variables from .env file
-require("dotenv").config();
-const anchor = require("@project-serum/anchor");
-const { PublicKey, Keypair } = require("@solana/web3.js");
+const {
+  Connection,
+  PublicKey,
+  Keypair,
+  Transaction,
+} = require("@solana/web3.js");
 const { Token, TOKEN_PROGRAM_ID } = require("@solana/spl-token");
+const raydium = require("@raydium-io/raydium-sdk");
 
-// Your program ID
-const programId = new PublicKey("72w7neBB7p3Bv7zRzGRiKNahQDCpJV4s78AWxVDw5k6m");
+// Initialize Solana connection
+const connection = new Connection("https://api.devnet.solana.com", "confirmed");
 
-// Replace with your wallet (this is just a placeholder, replace with your actual wallet)
-const wallet = Keypair.generate();
+// Initialize wallet (using Keypair here for demo; replace with your wallet)
+const wallet = Keypair.generate("");
 
-// Token mint addresses
-const TOKEN1_MINT = new PublicKey(
-  "CaGbBR2wQdmCPtBoqkDc7x1o1PCTjDQFRcgHVG3HQHNB"
-);
-const TOKEN2_MINT = new PublicKey(
-  "5XDtS38pDWwnGo5K2jFmmJ9c5dpQP2vB3DMbkJXxicQ8"
-);
+// Replace these with actual addresses
+const POOL_ID = new PublicKey("POOL_PUBLIC_KEY_HERE"); // Raydium pool for the token pair (e.g., SOL/USDC)
+const SOURCE_TOKEN_ACCOUNT = new PublicKey("SOURCE_TOKEN_ACCOUNT_HERE"); // User's source token account
+const DESTINATION_TOKEN_ACCOUNT = new PublicKey(
+  "DESTINATION_TOKEN_ACCOUNT_HERE"
+); // User's destination token account
 
-// Replace with your token accounts
-const fromTokenAccount = new PublicKey(
-  "74K4JDiGopDvRE6rJSUBhp9XnXYa17DzjWn2d9X7mfSk"
-);
-const toTokenAccount = new PublicKey(
-  "74K4JDiGopDvRE6rJSUBhp9XnXYa17DzjWn2d9X7mfSk"
-);
-const feeAccount = new PublicKey(
-  "74K4JDiGopDvRE6rJSUBhp9XnXYa17DzjWn2d9X7mfSk"
-);
+// Amount to swap and minimum amount expected (in smallest units, e.g., lamports for SOL)
+const swapAmount = 1000000; // Amount in smallest units to swap from source to destination
+const minOutAmount = 950000; // Minimum amount expected to prevent slippage losses
 
-// Load the IDL for the program (replace 'YourIDL' with the actual IDL)
-const idl = require("./path/to/your/idl.json"); // Adjust the path to your IDL file
-
-async function swapTokens(amount) {
-  const provider = anchor.AnchorProvider.env();
-  anchor.setProvider(provider);
-
-  const program = new anchor.Program(idl, programId);
-
-  // Perform the token swap
-  try {
-    await program.rpc.swapTokens(new anchor.BN(amount), {
-      accounts: {
-        from: wallet.publicKey,
-        fromTokenAccount: fromTokenAccount,
-        fromTokenMint: TOKEN1_MINT,
-        toTokenAccount: toTokenAccount,
-        toTokenMint: TOKEN2_MINT,
-        feeAccount: feeAccount,
-        tokenProgram: TOKEN_PROGRAM_ID,
-      },
-      signers: [wallet],
-    });
-
-    console.log("Tokens swapped successfully");
-  } catch (error) {
-    console.error("Error swapping tokens:", error);
-  }
+// Load Raydium pool
+async function loadPool() {
+  console.log("Loading Raydium pool...");
+  const pool = await raydium.loadPool(connection, POOL_ID);
+  return pool;
 }
 
-// Specify the amount to swap
-swapTokens(100);
-
-/*
-const anchor = require("@project-serum/anchor")
-const { TOKEN_PROGRAM_ID, Token } = require("@solana/spl-token");
-const { PublicKey, SystemProgram } = require("@solana/web3.js");
-
+// Perform the swap transaction
 async function swapTokens() {
-  const provider = anchor.AnchorProvider.env();
-  anchor.setProvider(provider);
+  const pool = await loadPool();
+  const transaction = new Transaction();
 
-  const programId = new PublicKey(
-    "72w7neBB7p3Bv7zRzGRiKNahQDCpJV4s78AWxVDw5k6m"
-  );
+  // Create the swap instruction using Raydium SDK
+  const swapInstruction = raydium.makeSwapInstruction({
+    pool,
+    userSourceTokenAccount: SOURCE_TOKEN_ACCOUNT,
+    userDestinationTokenAccount: DESTINATION_TOKEN_ACCOUNT,
+    amountIn: swapAmount,
+    minAmountOut: minOutAmount,
+    user: wallet.publicKey,
+  });
 
-  const idl = await anchor.Program.fetchIdl(programId, provider);
-  const program = new anchor.Program(idl, programId, provider);
+  transaction.add(swapInstruction);
 
-  const TOKEN1_MINT = new PublicKey(
-    "CaGbBR2wQdmCPtBoqkDc7x1o1PCTjDQFRcgHVG3HQHNB"
-  );
-  const TOKEN2_MINT = new PublicKey(
-    "5XDtS38pDWwnGo5K2jFmmJ9c5dpQP2vB3DMbkJXxicQ8"
-  );
-
-  const userPublicKey = provider.wallet.publicKey;
-
-  const fromTokenAccount = new PublicKey(
-    "5NrzCyz9C3v7ik9tnqMRWESPwrrZFMCCb6rtnTgBSubG"
-  ); 
-  const toTokenAccount = new PublicKey(
-    "5NrzCyz9C3v7ik9tnqMRWESPwrrZFMCCb6rtnTgBSubG"
-  ); 
-  const feeAccount = new PublicKey(
-    "5NrzCyz9C3v7ik9tnqMRWESPwrrZFMCCb6rtnTgBSubG"
-  ); 
-
-  const amount = new anchor.BN(1000000); 
-  const tx = await program.methods
-    .swapTokens(amount)
-    .accounts({
-      from: userPublicKey,
-      fromTokenAccount: fromTokenAccount,
-      fromTokenMint: TOKEN1_MINT,
-      toTokenAccount: toTokenAccount,
-      toTokenMint: TOKEN2_MINT,
-      feeAccount: feeAccount,
-      tokenProgram: TOKEN_PROGRAM_ID,
-    })
-    .rpc();
-
-  console.log("Swap transaction signature:", tx);
+  console.log("Signing and sending transaction...");
+  const signature = await connection.sendTransaction(transaction, [wallet]);
+  await connection.confirmTransaction(signature, "confirmed");
+  console.log(`Swap transaction confirmed: ${signature}`);
 }
 
-swapTokens().catch((err) => {
-  console.error("Transaction failed", err);
-});
+// Check balance of a token account
+async function checkBalance(account) {
+  const balance = await connection.getTokenAccountBalance(account);
+  console.log(`Balance for ${account.toString()}: ${balance.value.uiAmount}`);
+}
 
-*/
+// Main function to run the swap
+async function main() {
+  console.log("Checking initial balances...");
+  await checkBalance(SOURCE_TOKEN_ACCOUNT);
+  await checkBalance(DESTINATION_TOKEN_ACCOUNT);
+
+  console.log("Starting swap...");
+  await swapTokens();
+
+  console.log("Checking final balances...");
+  await checkBalance(SOURCE_TOKEN_ACCOUNT);
+  await checkBalance(DESTINATION_TOKEN_ACCOUNT);
+}
+
+main().catch(console.error);
