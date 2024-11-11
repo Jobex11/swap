@@ -3,20 +3,21 @@ function App() {
     <div>
       <div>
         {/* add*/}
-
-        <div>
-          <button>connect wallet</button>
+        <div className="mt-5">
+          <button className="rounded-lg bg-custom-teal p-3 text-lg cursor-pointer hover:bg-hover-teal">
+            Connect Wallet
+          </button>
         </div>
-        <div>
+        <div className="my-1">
           <span>Wallet Addr:</span>
           <span>abs...</span>
         </div>
-        <div>
+        <div className="my-1">
           <span>Swap token Amount:</span>
           <span>23 optimus</span>
         </div>
       </div>
-      <div className="content-box">
+      <div className="  my-5">
         <div className="swap-box">
           <div className="title">
             <div>SWAP</div>
