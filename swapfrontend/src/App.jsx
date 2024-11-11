@@ -2,10 +2,10 @@ import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
 function App() {
   return (
     <div>
-      <div>
+      <div className="px-3">
         {/* add */}
-        <div className="mt-5">
-          <button className="rounded-lg bg-custom-teal p-3 text-base cursor-pointer hover:bg-hover-teal">
+        <div className="mt-5 ">
+          <button className="w-full md:w-fit rounded-lg bg-custom-teal p-3 text-base cursor-pointer hover:bg-hover-teal">
             Connect Wallet
           </button>
         </div>
@@ -15,10 +15,10 @@ function App() {
         </div>
         <div className="my-1 space-x-2">
           <span>Token Amount:</span>
-          <span className="font-semibold">23 optimus</span>
+          <span className="font-semibold">Loading...</span>
         </div>
       </div>
-      <div className="  my-5">
+      <div className="my-5 px-3">
         <div className="swap-box">
           <div className="title">
             <div>SWAP</div>
@@ -60,7 +60,7 @@ function App() {
             <span>[?]</span>
           </div>
           <div className="w-full">
-            <button className="bg-custom-teal hover:bg-hover-teal p-2 rounded-lg bg-[]  text-base w-1/2">
+            <button className="bg-custom-teal hover:bg-hover-teal p-2 rounded-lg bg-[]  text-base w-full md:w-1/2">
               Swap
             </button>
             {/*

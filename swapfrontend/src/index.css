@@ -18,8 +18,8 @@
 }
 body {
   background-color: #242424;
-  width: 60%;
   border-radius: 10px;
+  width: 60%;
 }
 .content-box {
   background-color: rgb(26, 147, 147);
@@ -36,7 +36,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  padding: 10px;
 }
 .title {
   font-size: 20px;
@@ -67,4 +66,10 @@ body {
 }
 .custom-teal:checked {
   accent-color: rgb(26, 147, 147);
+}
+
+@media (max-width: 569px) {
+  body {
+    width: 100%;
+  }
 }
