@@ -58,14 +58,13 @@ body {
 .checker {
   display: none;
 }
-.swap {
+
+.swapicon {
+  display: flex;
+  justify-content: center;
   width: 100%;
+  position: relative;
 }
-.swap button {
-  background-color: rgb(41, 222, 41);
-  width: inherit;
-  padding: 10px;
-  font-size: 15px;
-  cursor: pointer;
-  border-radius: 8px;
+.custom-teal:checked {
+  accent-color: rgb(26, 147, 147);
 }
