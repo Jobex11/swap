@@ -1,42 +1,68 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/*
+:root {
+  color: rgba(255, 255, 255, 0.87);
+
+  background-color: #242424;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+body {
+  background-color: #242424;
+  width: 60%;
+  height: 50%;
+  border-radius: 10px;
+}
+.content-box {
+  background-color: rgb(26, 147, 147);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+.swap-box {
+  background-color: #242424;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding: 10px;
+}
+.title {
+  font-size: 20px;
+  gap: 9px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  width: inherit;
+}
+.pro {
+  background-color: rgb(26, 147, 147);
+  color: #242424;
+  padding: 2px;
+  border-radius: 5px;
+}
+.checker {
+  display: none;
+}
+.swap {
+  width: 100%;
+}
+.swap button {
+  background-color: rgb(41, 222, 41);
+  width: inherit;
+  padding: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 8px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+*/
