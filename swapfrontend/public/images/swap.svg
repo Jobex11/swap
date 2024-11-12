@@ -1,24 +1,24 @@
-<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+<svg width="100" height="50" viewBox="0 0 100 75" xmlns="http://www.w3.org/2000/svg">
   <!-- "S" -->
-  <text x="20" y="55%" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" fill="white">
+  <text x="0" y="80%" text-anchor="middle" font-weight="bold" font-family="Arial, sans-serif" font-size="70" fill="white">
     S
     <animate attributeName="fill" values="rgb(26, 147, 147);white" dur="4s" repeatCount="indefinite" begin="0s" />
   </text>
 
   <!-- "W" -->
-  <text x="70" y="55%" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" fill="white">
+  <text x="40" y="80%" text-anchor="middle" font-weight="bold" font-family="Arial, sans-serif" font-size="70" fill="white">
     W
     <animate attributeName="fill" values="rgb(26, 147, 147);white" dur="4s" repeatCount="indefinite" begin="1s" />
   </text>
 
   <!-- "A" -->
-  <text x="120" y="55%" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" fill="white">
+  <text x="70" y="80%" text-anchor="middle"  font-weight="bold"  font-family="Arial, sans-serif" font-size="70" fill="white">
     A
     <animate attributeName="fill" values="rgb(26, 147, 147);white" dur="4s" repeatCount="indefinite" begin="2s" />
   </text>
 
   <!-- "P" -->
-  <text x="170" y="55%" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" fill="white">
+  <text x="100" y="80%" text-anchor="middle" font-weight="bold" font-family="Arial, sans-serif" font-size="70" fill="white">
     P
     <animate attributeName="fill" values="rgb(26, 147, 147);white" dur="4s" repeatCount="indefinite" begin="3s" />
   </text>

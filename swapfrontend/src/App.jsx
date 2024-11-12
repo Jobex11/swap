@@ -152,12 +152,12 @@ function App() {
       });
   };
   return (
-    <div>
+    <div className="blur-overlay">
       <div className="px-3">
         {/* add */}
         <div className="mt-5 ">
           <button
-            className="w-full md:w-fit rounded-lg bg-custom-teal p-3 text-base cursor-pointer hover:bg-hover-tea"
+            className="w-full md:w-fit rounded-lg bg-custom-teal p-3 text-base cursor-pointer hover:bg-hover-tea relative z-10"
             onClick={connectWallet}
           >
             {walletAddress ? "Wallet Connected" : "Connect Wallet"}{" "}
@@ -187,12 +187,11 @@ function App() {
       </div>
       <div className="my-5 px-3">
         <div className="swap-box">
-          <div className="title">
+          <div className="title ">
             <div className="font-semibold">
               <img src="/images/swap.svg" />
             </div>
-
-            <div>
+            <div className="flex">
               <img src="/images/pro.svg" />
             </div>
           </div>
