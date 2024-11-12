@@ -157,7 +157,7 @@ function App() {
         {/* add */}
         <div className="mt-5 ">
           <button
-            className="w-full md:w-fit rounded-lg bg-custom-teal p-3 text-base cursor-pointer hover:bg-hover-teal"
+            className="w-full md:w-fit rounded-lg bg-custom-teal p-3 text-base cursor-pointer hover:bg-hover-tea"
             onClick={connectWallet}
           >
             {walletAddress ? "Wallet Connected" : "Connect Wallet"}{" "}
@@ -191,10 +191,7 @@ function App() {
             <div className="font-semibold">
               <img src="/images/swap.svg" />
             </div>
-            {/*
-            <div className="pro">PRO</div>
-          
-            */}
+
             <div>
               <img src="/images/pro.svg" />
             </div>
