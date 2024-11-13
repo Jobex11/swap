@@ -7,6 +7,9 @@ export default {
         "custom-teal": "rgb(26, 147, 147)",
         "hover-teal": "rgb(23, 172, 172)",
       },
+      screens: {
+        xs: "480px", // Extra small screens (or any size you prefer)
+      },
     },
   },
   plugins: [],

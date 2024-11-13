@@ -237,8 +237,8 @@ function Home() {
             <h5>mark checker</h5>
             <h3>Swapped!</h3>
           </div>
-          <div className="bg-[#3d3b3b] rounded-lg mt-3 -mb-3 p-4 w-full flex-col sm:flex-row flex">
-            <div className="w-full sm:w-1/2">
+          <div className="bg-[#3d3b3b] rounded-lg mt-3 -mb-3 p-4 w-full flex-col xs:flex-row flex">
+            <div className="w-full xs:w-1/2">
               <h4 className="text-custom-teal font-semibold text-sm">
                 YOU PAY
               </h4>
@@ -252,7 +252,7 @@ function Home() {
                 50K 100k 250k 1M Max
               </h4>
             </div>
-            <div className="w-full sm:w-1/2 flex flex-col items-start sm:items-end">
+            <div className="w-full xs:w-1/2 flex flex-col items-start xs:items-end">
               <div>
                 <Button
                   onClick={handlePayClickOpen}
@@ -291,8 +291,8 @@ function Home() {
           <div className="swapicon">
             <SwapVerticalCircleIcon style={{ fontSize: "40px" }} />
           </div>
-          <div className="bg-[#3d3b3b] rounded-lg  -mt-3 mb-3 p-4 w-full flex flex-col sm:flex-row">
-            <div className=" w-full sm:w-1/2">
+          <div className="bg-[#3d3b3b] rounded-lg  -mt-3 mb-3 p-4 w-full flex flex-col xs:flex-row">
+            <div className=" w-full xs:w-1/2">
               <h3 className="text-custom-teal  text-sm font-semibold">
                 YOUR RECEIVE
               </h3>
@@ -302,7 +302,7 @@ function Home() {
                 <span>$ </span> <span>0.00</span>
               </h3>
             </div>
-            <div className="w-full sm:w-1/2  flex-col flex items-start sm:items-end">
+            <div className="w-full xs:w-1/2  flex-col flex items-start xs:items-end">
               <div>
                 <Button
                   onClick={handlePayClickOpen}
