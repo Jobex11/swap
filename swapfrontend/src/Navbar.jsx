@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="flex xs:space-x-0 space-x-1s md:flex-col items-center w-full md:w-fit justify-between md:justify-center rounded-xl">
         <Link to="/" className="relative group">
           <div
-            className={`rounded-xl my-1 p-3 xs:w-1/4 xs:block flex flex-col justify-center items-center  w-fit ${
+            className={`rounded-xl my-1 p-3 xs:w-fit w-1/4 xs:block flex flex-col justify-center items-center  ${
               isActive("/") ? "bg-custom-teal" : "bg-[#3d3b3b]"
             }`}
           >
@@ -33,7 +33,7 @@ const Navbar = () => {
 
         <Link to="/addliq" className="relative group">
           <div
-            className={`rounded-xl my-1 p-3 xs:w-1/4 xs:block flex flex-col justify-center items-center ${
+            className={`rounded-xl my-1 p-3 xs:w-fit w-1/4 xs:block flex flex-col justify-center items-center ${
               isActive("/addliq") ? "bg-custom-teal" : "bg-[#3d3b3b]"
             }`}
           >
@@ -49,7 +49,7 @@ const Navbar = () => {
 
         <Link to="/transaction" className="relative group">
           <div
-            className={`rounded-xl my-1 p-3 xs:w-1/4 xs:block flex flex-col justify-center items-center ${
+            className={`rounded-xl my-1 p-3 xs:w-fit w-1/4  xs:block flex flex-col justify-center items-center ${
               isActive("/transaction") ? "bg-custom-teal" : "bg-[#3d3b3b]"
             }`}
           >
@@ -65,7 +65,7 @@ const Navbar = () => {
 
         <Link to="/learn" className="relative group">
           <div
-            className={`rounded-xl my-1 p-3 xs:w-1/4 xs:block flex flex-col justify-center items-center ${
+            className={`rounded-xl my-1 p-3 xs:w-fit w-1/4 xs:block flex flex-col justify-center items-center ${
               isActive("/learn") ? "bg-custom-teal" : "bg-[#3d3b3b]"
             }`}
           >

@@ -1,5 +1,3 @@
-import React from "react";
-
 const Addliq = () => {
   return (
     <div className="flex flex-col justify-center  h-full  w-full  items-center">

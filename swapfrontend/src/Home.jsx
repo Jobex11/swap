@@ -258,6 +258,10 @@ function Home() {
                   onClick={handlePayClickOpen}
                   variant="outlined"
                   endIcon={<ArrowDropDownIcon />}
+                  sx={{
+                    color: "rgb(26, 147, 147)",
+                    borderColor: "rgb(26, 147, 147)",
+                  }}
                 >
                   Select tokens
                 </Button>
@@ -308,13 +312,19 @@ function Home() {
                   onClick={handlePayClickOpen}
                   variant="outlined"
                   endIcon={<ArrowDropDownIcon />}
+                  sx={{
+                    color: "rgb(26, 147, 147)",
+                    borderColor: "rgb(26, 147, 147)",
+                  }}
                 >
                   Select tokens
                 </Button>
               </div>
 
               <Dialog open={openPay} onClose={() => setOpenPay(false)}>
-                <DialogTitle>Select a Token</DialogTitle>
+                <DialogTitle className="text-custom-teal">
+                  Select a Token
+                </DialogTitle>
                 <Grid container spacing={2} padding={2}>
                   {tokens.map((token, index) => (
                     <Grid item xs={3} key={index}>
