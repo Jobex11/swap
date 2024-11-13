@@ -261,7 +261,7 @@ function Home() {
                 50K 100k 250k 1M Max
               </h4>
             </div>
-            <div className="border w-1/2 flex flex-col items-end">
+            <div className="w-1/2 flex flex-col items-end">
               <div>
                 <Button
                   onClick={handlePayClickOpen}
@@ -302,7 +302,7 @@ function Home() {
           </div>
           {/* swap  receive*/}
           <div className="bg-[#3d3b3b] rounded-lg  -mt-3 mb-3 p-4 w-full flex">
-            <div className="w-1/2 border">
+            <div className="w-1/2">
               <h3 className="text-custom-teal  text-sm font-semibold">
                 YOUR RECEIVE
               </h3>
@@ -312,7 +312,7 @@ function Home() {
                 <span>$ </span> <span>0.00</span>
               </h3>
             </div>
-            <div className="w-1/2 border flex-col flex items-end">
+            <div className="w-1/2  flex-col flex items-end">
               <div>
                 <Button
                   onClick={handlePayClickOpen}

@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import Learn from "./Learn";
 import Transaction from "./Transaction";
 import Home from "./Home";
+import Tokens from "./Tokens";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
             <Route path="/transaction" element={<Transaction />} />
             <Route path="/learn" element={<Learn />} />
             <Route path="/" element={<Home />} />
+
+            <Route path="/tokens" element={<Tokens />} />
           </Routes>
         </div>
       </div>
