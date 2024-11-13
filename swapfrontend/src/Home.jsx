@@ -43,7 +43,6 @@ const token2Mint = new PublicKey(
 );
 
 function Home() {
-  //usestate hooks
   const [walletAddress, setWalletAddress] = useState(null);
   const [amountToken1, setAmountToken1] = useState("");
   const [amountToken2, setAmountToken2] = useState("");
@@ -51,14 +50,12 @@ function Home() {
   const [userToken2Account, setUserToken2Account] = useState("");
   const [token1Balance, setToken1Balance] = useState(null);
   const [token2Balance, setToken2Balance] = useState(null);
-  // token selection hooks
+
   const [openPay, setOpenPay] = useState(false);
   const [selectedPayToken, setSelectedPayToken] = useState("Token1");
   const [openReceive, setOpenReceive] = useState(false);
   const [selectedReceiveToken, setSelectedReceiveToken] = useState("Token1");
 
-  // token selection start
-  // Generate an array of 20 tokens (Token1, Token2, ..., Token20)
   const tokens = Array.from({ length: 20 }, (_, i) => `Token${i + 1}`);
   const handlePayClickOpen = () => {
     setOpenPay(true);
@@ -76,9 +73,7 @@ function Home() {
     setSelectedReceiveToken(token);
     setOpenReceive(false);
   };
-  // token selection stop
 
-  //Smart contract integration
   const connection = new Connection("https://api.devnet.solana.com");
 
   const connectWallet = async () => {
@@ -180,8 +175,6 @@ function Home() {
     return address ? `${address.slice(0, 4)}...${address.slice(-4)}` : "";
   };
 
-  //handlecopy
-
   const handleCopy = () => {
     const textToCopy = walletAddress ? walletAddress : "Not Connected";
     navigator.clipboard
@@ -194,7 +187,6 @@ function Home() {
       });
   };
 
-  // smart contract ends
   return (
     <div className="w-full md:w-[80%] lg:w-[70%] my-3">
       <div className="px-3">
@@ -207,7 +199,7 @@ function Home() {
           </div>
         </div>
         <hr className="border-t border-gray-500 w-full my-3" />
-        {/* add */}
+
         <div className="mt-5 ">
           <button
             className="w-full md:w-1/2 rounded-lg bg-custom-teal p-3 text-base cursor-pointer hover:bg-hover-tea relative z-10"
@@ -245,9 +237,8 @@ function Home() {
             <h5>mark checker</h5>
             <h3>Swapped!</h3>
           </div>
-          {/* swap pay*/}
-          <div className="bg-[#3d3b3b] rounded-lg mt-3 -mb-3 p-4 w-full flex">
-            <div className="w-1/2">
+          <div className="bg-[#3d3b3b] rounded-lg mt-3 -mb-3 p-4 w-full flex-col sm:flex-row flex">
+            <div className="w-full sm:w-1/2">
               <h4 className="text-custom-teal font-semibold text-sm">
                 YOU PAY
               </h4>
@@ -261,7 +252,7 @@ function Home() {
                 50K 100k 250k 1M Max
               </h4>
             </div>
-            <div className="w-1/2 flex flex-col items-end">
+            <div className="w-full sm:w-1/2 flex flex-col items-start sm:items-end">
               <div>
                 <Button
                   onClick={handlePayClickOpen}
@@ -300,9 +291,8 @@ function Home() {
           <div className="swapicon">
             <SwapVerticalCircleIcon style={{ fontSize: "40px" }} />
           </div>
-          {/* swap  receive*/}
-          <div className="bg-[#3d3b3b] rounded-lg  -mt-3 mb-3 p-4 w-full flex">
-            <div className="w-1/2">
+          <div className="bg-[#3d3b3b] rounded-lg  -mt-3 mb-3 p-4 w-full flex flex-col sm:flex-row">
+            <div className=" w-full sm:w-1/2">
               <h3 className="text-custom-teal  text-sm font-semibold">
                 YOUR RECEIVE
               </h3>
@@ -312,7 +302,7 @@ function Home() {
                 <span>$ </span> <span>0.00</span>
               </h3>
             </div>
-            <div className="w-1/2  flex-col flex items-end">
+            <div className="w-full sm:w-1/2  flex-col flex items-start sm:items-end">
               <div>
                 <Button
                   onClick={handlePayClickOpen}
@@ -347,7 +337,6 @@ function Home() {
               </div>
             </div>
           </div>
-          {/* swap button */}
           <div className="hidden">View transaction</div>
           <div className="space-x-2 my-2 font-serif">
             <span>
@@ -361,9 +350,6 @@ function Home() {
               <span>Swap</span>
               <SwapHorizIcon />
             </button>
-            {/*
-             swapping, insufficient funds, done
-            */}
           </div>
         </div>
       </div>
