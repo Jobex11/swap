@@ -62,7 +62,7 @@ const Navbar = () => {
             }`}
           >
             <InfoIcon style={{ fontSize: "40px" }} />
-            <div className="md:hidden">About-us</div>
+            <div className="md:hidden text-sm">About-us</div>
           </div>
           <span className="hidden md:block absolute left-14 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-base px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity">
             About Us

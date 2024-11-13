@@ -4,7 +4,25 @@ import { useState } from "react";
 import { Connection, PublicKey } from "@solana/web3.js";
 import * as anchor from "@project-serum/anchor";
 import WalletIcon from "@mui/icons-material/Wallet";
-import SendAndArchiveIcon from "@mui/icons-material/SendAndArchive";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import BlockIcon from "@mui/icons-material/Block";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import DoneIcon from "@mui/icons-material/Done";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  List,
+  Grid,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
+
 import idl from "./idl.json";
 import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
 
@@ -33,8 +51,34 @@ function Home() {
   const [userToken2Account, setUserToken2Account] = useState("");
   const [token1Balance, setToken1Balance] = useState(null);
   const [token2Balance, setToken2Balance] = useState(null);
+  // token selection hooks
+  const [openPay, setOpenPay] = useState(false);
+  const [selectedPayToken, setSelectedPayToken] = useState("Token1");
+  const [openReceive, setOpenReceive] = useState(false);
+  const [selectedReceiveToken, setSelectedReceiveToken] = useState("Token1");
 
-  //program techncallity
+  // token selection start
+  // Generate an array of 20 tokens (Token1, Token2, ..., Token20)
+  const tokens = Array.from({ length: 20 }, (_, i) => `Token${i + 1}`);
+  const handlePayClickOpen = () => {
+    setOpenPay(true);
+  };
+  const handlePayClose = (token) => {
+    setSelectedPayToken(token);
+    setOpenPay(false);
+  };
+
+  const handleReceiveClickOpen = () => {
+    setOpenReceive(true);
+  };
+
+  const handleReceiveClose = (token) => {
+    setSelectedReceiveToken(token);
+    setOpenReceive(false);
+  };
+  // token selection stop
+
+  //Smart contract integration
   const connection = new Connection("https://api.devnet.solana.com");
 
   const connectWallet = async () => {
@@ -149,6 +193,8 @@ function Home() {
         console.error("Could not copy text: ", err);
       });
   };
+
+  // smart contract ends
   return (
     <div className="w-full md:w-[80%] lg:w-[70%] my-3">
       <div className="px-3">
@@ -200,25 +246,106 @@ function Home() {
             <h3>Swapped!</h3>
           </div>
           {/* swap pay*/}
-          <div className="bg-[#3d3b3b] rounded-lg mt-3 -mb-3 p-4 w-full">
-            <h4>You Pay</h4>
-            <div>
-              <input
-                placeholder="0"
-                className="bg-[#3d3b3b] py-2 text-lg my-1"
-              />
+          <div className="bg-[#3d3b3b] rounded-lg mt-3 -mb-3 p-4 w-full flex">
+            <div className="w-1/2">
+              <h4 className="text-custom-teal font-semibold text-sm">
+                YOU PAY
+              </h4>
+              <div className="">
+                <input
+                  placeholder="0"
+                  className="bg-[#3d3b3b] py-2 text-lg my-1"
+                />
+              </div>
+              <h4 className="text-sm   text-yellow-400">
+                50K 100k 250k 1M Max
+              </h4>
             </div>
-            <h4>50K 100k 250k 1M Max</h4>
+            <div className="border w-1/2 flex flex-col items-end">
+              <div>
+                <Button
+                  onClick={handlePayClickOpen}
+                  variant="outlined"
+                  endIcon={<ArrowDropDownIcon />}
+                >
+                  Select tokens
+                </Button>
+              </div>
+
+              <Dialog open={openPay} onClose={() => setOpenPay(false)}>
+                <DialogTitle>Select a Token</DialogTitle>
+                <Grid container spacing={2} padding={2}>
+                  {tokens.map((token, index) => (
+                    <Grid item xs={3} key={index}>
+                      <ListItem button onClick={() => handlePayClose(token)}>
+                        <ListItemText primary={token} />
+                      </ListItem>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Dialog>
+
+              <div>
+                <h1>{selectedPayToken} img</h1>
+                <h5>{selectedPayToken} name</h5>
+              </div>
+              <div className="flex text-sm text-pink-500 space-x-2">
+                <h1>liquidity:</h1>
+                <h1>68.68m</h1>
+                <h1>img</h1>
+              </div>
+            </div>
           </div>
 
           <div className="swapicon">
             <SwapVerticalCircleIcon style={{ fontSize: "40px" }} />
           </div>
           {/* swap  receive*/}
-          <div className="bg-[#3d3b3b] rounded-lg  -mt-3 mb-3 p-4 w-full">
-            <h3>You Receive</h3>
-            <h3 className="py-2 text-lg my-1">0</h3>
-            <h3 className="text-end">LiQ: 68.68M</h3>
+          <div className="bg-[#3d3b3b] rounded-lg  -mt-3 mb-3 p-4 w-full flex">
+            <div className="w-1/2 border">
+              <h3 className="text-custom-teal  text-sm font-semibold">
+                YOUR RECEIVE
+              </h3>
+              <h3 className="py-2 text-lg my-1 font-semibold">0</h3>
+              <h3 className="text-sm  text-blue-400">
+                {" "}
+                <span>$ </span> <span>0.00</span>
+              </h3>
+            </div>
+            <div className="w-1/2 border flex-col flex items-end">
+              <div>
+                <Button
+                  onClick={handlePayClickOpen}
+                  variant="outlined"
+                  endIcon={<ArrowDropDownIcon />}
+                >
+                  Select tokens
+                </Button>
+              </div>
+
+              <Dialog open={openPay} onClose={() => setOpenPay(false)}>
+                <DialogTitle>Select a Token</DialogTitle>
+                <Grid container spacing={2} padding={2}>
+                  {tokens.map((token, index) => (
+                    <Grid item xs={3} key={index}>
+                      <ListItem button onClick={() => handlePayClose(token)}>
+                        <ListItemText primary={token} />
+                      </ListItem>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Dialog>
+
+              <div>
+                <h1>{selectedPayToken} img</h1>
+                <h5>{selectedPayToken} name</h5>
+                <h3 className="text-sm text-pink-500 flex space-x-2">
+                  <h3>liquidity:</h3>
+                  <h3>1.23b</h3>
+                  <h3>img</h3>
+                </h3>
+              </div>
+            </div>
           </div>
           {/* swap button */}
           <div className="hidden">View transaction</div>
