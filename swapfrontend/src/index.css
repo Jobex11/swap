@@ -78,9 +78,6 @@ body {
   accent-color: rgb(26, 147, 147);
 }
 
-button {
-}
-
 @media (max-width: 569px) {
   body {
     width: 100%;

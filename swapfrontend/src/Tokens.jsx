@@ -83,6 +83,10 @@ const Tokens = () => {
   const [selectedToken, setSelectedToken] = useState(null);
   const [openPopup, setOpenPopup] = useState(false);
 
+  const [tokens2, setTokens2] = useState([]);
+  const [selectedToken2, setSelectedToken2] = useState(null);
+  const [openPopup2, setOpenPopup2] = useState(false);
+
   // Fetch tokens when the component mounts
   useEffect(() => {
     const loadTokens = async () => {
@@ -94,7 +98,6 @@ const Tokens = () => {
     loadTokens();
   }, []);
 
-  // Handle token click to open the popup
   const handleTokenClick = (token) => {
     setSelectedToken(token);
   };
@@ -115,6 +118,36 @@ const Tokens = () => {
     setOpenPopup(false); // Close the popup
   };
 
+  // second functions
+  useEffect(() => {
+    const loadTokens = async () => {
+      const tokenList = await fetchSolanaTokens();
+      setTokens2(tokenList);
+      setSelectedToken2(tokenList[0]); // Set the first token as the default
+    };
+
+    loadTokens();
+  }, []);
+
+  const handleTokenClick2 = (token) => {
+    setSelectedToken2(token);
+  };
+
+  // Open the token selection popup
+  const handleOpenPopup2 = () => {
+    setOpenPopup2(true);
+  };
+
+  // Close the token selection popup
+  const handleClosePopup2 = () => {
+    setOpenPopup2(false);
+  };
+
+  // Handle selection of a token from the popup
+  const handleSelectToken2 = (token) => {
+    setSelectedToken2(token);
+    setOpenPopup2(false); // Close the popup
+  };
   return (
     <div>
       {/* Default Token Display */}
@@ -132,7 +165,7 @@ const Tokens = () => {
               {/* Adjust padding as needed */}
               <Grid container direction="column" alignItems="center">
                 <Avatar src={selectedToken?.logo} alt={selectedToken?.name} />
-                <Typography variant="h7" sx={{ marginTop: 0.5 }}>
+                <Typography variant="h5" sx={{ marginTop: 0.5 }}>
                   {" "}
                   {/* Reduced margin */}
                   {selectedToken?.name}
@@ -185,6 +218,74 @@ const Tokens = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* second div */}
+
+      <Dialog open={openPopup2} onClose={handleClosePopup2}>
+        <DialogTitle>Select a Token</DialogTitle>
+        <DialogContent>
+          <Grid container spacing={2}>
+            {tokens2.map((token) => (
+              <Grid item xs={4} key={token.address}>
+                <Card
+                  onClick={() => handleSelectToken2(token)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <CardContent>
+                    <Grid container direction="column" alignItems="center">
+                      <Avatar src={token.logo} alt={token.name} />
+                      <Typography variant="body1">{token.name}</Typography>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePopup2} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <div className="bg-custom-teal">
+        <div onClick={handleOpenPopup2} style={{ cursor: "pointer" }}>
+          <Card
+            sx={{
+              backgroundColor: "transparent",
+              boxShadow: "none",
+              padding: 0,
+            }}
+          >
+            <CardContent sx={{ padding: "8px" }}>
+              {" "}
+              {/* Adjust padding as needed */}
+              <Grid container direction="column" alignItems="center">
+                <Avatar src={selectedToken2?.logo} alt={selectedToken2?.name} />
+                <Typography variant="h5" sx={{ marginTop: 0.5 }}>
+                  {" "}
+                  {/* Reduced margin */}
+                  {selectedToken2?.name}
+                </Typography>
+              </Grid>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Token Address */}
+      <div>
+        <Typography variant="body1">
+          Token Address: {selectedToken2?.address}
+        </Typography>
+      </div>
+
+      {/* Token Liquidity */}
+      <div>
+        <Typography variant="body1">
+          Liquidity: {selectedToken2?.liquidity}
+        </Typography>
+      </div>
     </div>
   );
 };

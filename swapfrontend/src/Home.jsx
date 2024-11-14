@@ -126,6 +126,9 @@ function Home() {
   const [tokens, setTokens] = useState([]);
   const [selectedToken, setSelectedToken] = useState(null);
   const [openPopup, setOpenPopup] = useState(false);
+  const [tokens2, setTokens2] = useState([]);
+  const [selectedToken2, setSelectedToken2] = useState(null);
+  const [openPopup2, setOpenPopup2] = useState(false);
 
   // Fetch tokens when the component mounts
   useEffect(() => {
@@ -159,6 +162,35 @@ function Home() {
     setOpenPopup(false); // Close the popup
   };
 
+  useEffect(() => {
+    const loadTokens = async () => {
+      const tokenList = await fetchSolanaTokens();
+      setTokens2(tokenList);
+      setSelectedToken2(tokenList[0]); // Set the first token as the default
+    };
+
+    loadTokens();
+  }, []);
+
+  const handleTokenClick2 = (token) => {
+    setSelectedToken2(token);
+  };
+
+  // Open the token selection popup
+  const handleOpenPopup2 = () => {
+    setOpenPopup2(true);
+  };
+
+  // Close the token selection popup
+  const handleClosePopup2 = () => {
+    setOpenPopup2(false);
+  };
+
+  // Handle selection of a token from the popup
+  const handleSelectToken2 = (token) => {
+    setSelectedToken2(token);
+    setOpenPopup2(false); // Close the popup
+  };
   // token popup ends
 
   const connection = new Connection("https://api.devnet.solana.com");
@@ -426,7 +458,7 @@ function Home() {
             </div>
             <div className="w-full xs:w-1/2  flex-col flex items-start xs:items-end">
               <div className="bg-[#605e5e] rounded-md">
-                <div onClick={handleOpenPopup} style={{ cursor: "pointer" }}>
+                <div onClick={handleOpenPopup2} style={{ cursor: "pointer" }}>
                   <Card
                     sx={{
                       backgroundColor: "transparent",
@@ -439,28 +471,61 @@ function Home() {
                       {/* Consistent padding on all sides */}
                       <Grid container direction="column" alignItems="center">
                         <Avatar
-                          src={selectedToken?.logo}
-                          alt={selectedToken?.name}
+                          src={selectedToken2?.logo}
+                          alt={selectedToken2?.name}
                         />
                         <Typography
                           variant="h7"
                           sx={{ marginTop: 0.3, color: "rgb(214, 206, 206)" }}
                         >
                           {/* Reduced margin */}
-                          {selectedToken?.name}
+                          {selectedToken2?.name}
                         </Typography>
                       </Grid>
                     </CardContent>
                   </Card>
                 </div>
-              </div>
 
+                <Dialog open={openPopup2} onClose={handleClosePopup2}>
+                  <DialogTitle>Select a Token</DialogTitle>
+                  <DialogContent>
+                    <Grid container spacing={2}>
+                      {tokens2.map((token) => (
+                        <Grid item xs={4} key={token.address}>
+                          <Card
+                            onClick={() => handleSelectToken2(token)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            <CardContent>
+                              <Grid
+                                container
+                                direction="column"
+                                alignItems="center"
+                              >
+                                <Avatar src={token.logo} alt={token.name} />
+                                <Typography variant="body1">
+                                  {token.name}
+                                </Typography>
+                              </Grid>
+                            </CardContent>
+                          </Card>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClosePopup2} color="primary">
+                      Close
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+              </div>
               <div>
                 <h3 className="text-base text-gray-400 flex space-x-2">
                   <h3>Liq:</h3>
                   <h3>
                     <Typography variant="body1">
-                      {selectedToken?.liquidity}
+                      {selectedToken2?.liquidity}
                     </Typography>
                   </h3>
                 </h3>
