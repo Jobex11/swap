@@ -405,12 +405,7 @@ function Home() {
 
               <div className="flex text-base text-gray-400 space-x-2">
                 <h1>Liq:</h1>
-                <h1>
-                  <Typography variant="body1">
-                    {selectedToken?.liquidity}
-                  </Typography>
-                </h1>
-                <h1>img</h1>
+                <h1>{selectedToken?.liquidity}</h1>
               </div>
             </div>
           </div>
@@ -468,7 +463,6 @@ function Home() {
                       {selectedToken?.liquidity}
                     </Typography>
                   </h3>
-                  <h3>img</h3>
                 </h3>
               </div>
             </div>
