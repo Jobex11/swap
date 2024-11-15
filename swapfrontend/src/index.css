@@ -26,12 +26,13 @@ overlayer
 
 body {
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /*
+ background-color: #242424;
+ */
+  background-image: url("/images/bg.svg");
   border-radius: 10px;
   width: 100%;
-  opacity: 0.9;
   position: relative;
-  z-index: 100;
 }
 .content-box {
   background-color: rgb(16, 32, 32);
